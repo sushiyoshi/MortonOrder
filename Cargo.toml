@@ -16,11 +16,11 @@ gfx = "0.17.1"
 gfx_device_gl = "0.15.0"
 vecmath = "0.3.0"
 camera_controllers = "0.31.0"
-rand = "0.6.0"
 shader_version = "0.3.0"
 piston2d-graphics = "0.34.0"
 piston2d-opengl_graphics = "0.68.0"
 piston2d-touch_visualizer = "0.23.0"
+rand="0.6.0"
 
 
 [dependencies.pistoncore-glutin_window]

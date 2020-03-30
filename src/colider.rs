@@ -1,3 +1,4 @@
+
 use std::rc::Rc;
 use std::cell::RefCell;
 
@@ -6,12 +7,9 @@ type Link = Option<Rc<RefCell<Node>>>;
 type Dummy = Rc<RefCell<Node>>;
 //type ObjPointer = Box<GameObject>;
 type ObjPointer = Box<i32>;
-trait GameObject {
-	
-}
 
 struct Morton {
-
+	
 }
 
 impl Morton {
@@ -37,10 +35,8 @@ impl Node {
 	pub fn remove(&mut self) {
 		match &mut self.prev {
 			Some(prev) => {
-
 				prev.borrow_mut().next = if let Some(next) = &self.next {
 					Some(Rc::clone(&next))
-
 				} else {
 					None
 				}
@@ -65,20 +61,15 @@ impl Node {
 		*self.cellLength.borrow_mut() -= 1;
 
 	}
-	pub fn processing(&mut self) {
-		if *self.obj < 0 {
-			self.remove();
-		}
-	}
 }
 
-struct CCell {
+pub struct CCell {
 	first:Dummy,
 	last:Dummy,
-	length:Rc<RefCell<u64>>,
+	pub length:Rc<RefCell<u64>>,
 }
 impl CCell {	
-	fn new() -> CCell {
+	pub fn new() -> CCell {
 		let DummyObj = Box::new(0);
 		let DummyObj_2 = Box::new(0);
 		let DummyLen = Rc::new(RefCell::new(0));
@@ -92,7 +83,7 @@ impl CCell {
 			length:Rc::new(RefCell::new(0)),
 		}
 	}
-	fn push(&mut self,obj:ObjPointer) {
+	pub fn push(&mut self,obj:ObjPointer) {
 		let new = Node::new(obj,Rc::clone(&self.length));
 		new.borrow_mut().prev = Some(Rc::clone(&self.first) );
 
@@ -175,9 +166,7 @@ impl  Iterator for ProcessingIteraror {
         	Some(current) => {
         		let mut current = current.borrow_mut();
         		if *current.obj < 0 {
-
         			current.remove();
-
         		}
         	},
         	None => {},
