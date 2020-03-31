@@ -1,6 +1,7 @@
 
 use std::rc::Rc;
 use std::cell::RefCell;
+use super::consts::*;
 
 type Link = Option<Rc<RefCell<Node>>>;
 
@@ -9,11 +10,38 @@ type Dummy = Rc<RefCell<Node>>;
 type ObjPointer = Box<i32>;
 
 struct Morton {
-	
+	list:Vec<CCell>,
+	firstIndex:Vec<usize>,
+	maxLevel:usize,
+	length:usize,
 }
 
 impl Morton {
+	pub fn new() -> Morton {
+		let maxlevel = COLIDER_LEVEL;
+		let length = Morton::LinearQuadtree_getLead(maxlevel+1);
+		let mut list:Vec<CCell> = Vec::with_capacity(length);
+		for i in 0..length {
+			list.push(CCell::new());
+		}
+		let mut firstIndex:Vec<usize> = Vec::with_capacity(maxlevel);
+		for i in 0..maxlevel {
+			firstIndex.push(Morton::LinearQuadtree_getLead(i as usize));
+		}
+		Morton {
+			list:list,
+			firstIndex:firstIndex,
+			maxLevel:maxlevel,
+			length:length,
+		}
+	}
+	pub fn LinearQuadtree_getLead(len:usize) -> usize {
+		((4i64.pow(len as u32)-1)/3) as usize
+	}
 
+	fn regist() {
+		
+	}
 }
 
 #[derive(Clone)]
